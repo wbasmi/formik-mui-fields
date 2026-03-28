@@ -160,4 +160,32 @@ describe("FormikPasswordField", () => {
       );
     });
   });
+
+  describe("when custom icons are provided", () => {
+    it("renders the custom visiblePasswordIcon when password is hidden", () => {
+      const customIcon = <span>show</span>;
+      render(
+        <FormikPasswordField
+          name="password"
+          visiblePasswordIcon={customIcon}
+        />,
+      );
+      const slotProps = MockTextField.mock.calls[0][0].slotProps;
+      const endAdornment = slotProps.input.endAdornment;
+      const iconButton = endAdornment.props.children;
+      expect(iconButton.props.children).toBe(customIcon);
+    });
+
+    it("renders the custom hiddenPasswordIcon when password is shown", () => {
+      mockShowPassword = true;
+      const customIcon = <span>hide</span>;
+      render(
+        <FormikPasswordField name="password" hiddenPasswordIcon={customIcon} />,
+      );
+      const slotProps = MockTextField.mock.calls[0][0].slotProps;
+      const endAdornment = slotProps.input.endAdornment;
+      const iconButton = endAdornment.props.children;
+      expect(iconButton.props.children).toBe(customIcon);
+    });
+  });
 });

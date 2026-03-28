@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { type ReactNode, useState } from "react";
 import {
   TextField,
   type TextFieldProps,
@@ -12,12 +12,19 @@ import { useField } from "formik";
 
 type Props = {
   name: string;
+  visiblePasswordIcon?: ReactNode;
+  hiddenPasswordIcon?: ReactNode;
 } & Omit<
   TextFieldProps,
   "name" | "value" | "onChange" | "onBlur" | "error" | "helperText" | "type"
 >;
 
-const FormikPasswordField = ({ name, ...props }: Props) => {
+const FormikPasswordField = ({
+  name,
+  visiblePasswordIcon = <Visibility />,
+  hiddenPasswordIcon = <VisibilityOff />,
+  ...props
+}: Props) => {
   const [field, meta] = useField(name);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -36,7 +43,7 @@ const FormikPasswordField = ({ name, ...props }: Props) => {
                 onClick={() => setShowPassword((prev) => !prev)}
                 edge="end"
               >
-                {showPassword ? <VisibilityOff /> : <Visibility />}
+                {showPassword ? hiddenPasswordIcon : visiblePasswordIcon}
               </IconButton>
             </InputAdornment>
           ),
