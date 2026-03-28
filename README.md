@@ -1,4 +1,4 @@
-# @repo/formik-fields
+# formik-mui-fields
 
 Formik-connected [MUI](https://mui.com/) form field components. Each component wraps an MUI input, wires it to Formik via `useField`, and automatically handles value binding, change/blur events, and validation error display.
 
@@ -158,7 +158,7 @@ import {
   FormikTextField,
   FormikSelect,
   FormikCheckbox,
-} from "@repo/formik-fields";
+} from "formik-mui-fields";
 
 const MyForm = () => (
   <Formik

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-A library of Formik-connected MUI (Material UI) form field components. Each component wraps an MUI input, wires it to Formik via `useField`, and handles value/onChange/onBlur/error/helperText automatically. Published as `@repo/formik-fields` (private, used internally).
+A library of Formik-connected MUI (Material UI) form field components. Each component wraps an MUI input, wires it to Formik via `useField`, and handles value/onChange/onBlur/error/helperText automatically. Published as `formik-mui-fields`.
 
 ## Tech Stack
 
