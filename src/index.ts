@@ -12,3 +12,4 @@ export { default as FormikRating } from "./FormikRating/FormikRating";
 export { default as FormikToggleButtonGroup } from "./FormikToggleButtonGroup/FormikToggleButtonGroup";
 export { default as FormikNumberField } from "./FormikNumberField/FormikNumberField";
 export { default as FormikPasswordField } from "./FormikPasswordField/FormikPasswordField";
+export { default as FormikChipInput } from "./FormikChipInput/FormikChipInput";
