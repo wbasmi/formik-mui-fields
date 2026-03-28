@@ -30,7 +30,7 @@ formik-mui-fields/
 │   └── CropDialog/
 │       └── CropDialog.tsx       # Internal component (not exported)
 ├── CLAUDE.md                    # Top-level Claude Code instructions
-├── package.json                 # @repo/formik-fields (private)
+├── package.json                 # formik-mui-fields
 ├── vitest.config.ts             # Vitest config (jsdom, globals)
 └── tsconfig.json                # TypeScript config (strict, noEmit, react-jsx)
 ```

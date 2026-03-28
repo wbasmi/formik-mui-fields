@@ -1,6 +1,6 @@
 {
   "name": "formik-mui-fields",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Formik-connected MUI form field components with automatic value, validation, and error handling",
   "keywords": [
     "formik",
