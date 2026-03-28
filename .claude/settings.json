@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|Generate",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "pnpm run format"
+          }
+        ]
+      }
+    ]
+  }
+}

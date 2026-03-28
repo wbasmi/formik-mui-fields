@@ -1,0 +1,120 @@
+{
+  "name": "formik-mui-fields",
+  "version": "0.1.0",
+  "description": "Formik-connected MUI form field components with automatic value, validation, and error handling",
+  "keywords": [
+    "formik",
+    "mui",
+    "material-ui",
+    "react",
+    "form",
+    "fields",
+    "text-field",
+    "select",
+    "checkbox",
+    "switch",
+    "slider",
+    "rating",
+    "autocomplete",
+    "radio-group",
+    "toggle-button",
+    "color-picker",
+    "date-picker",
+    "image-upload"
+  ],
+  "license": "MIT",
+  "author": "Wadii Basmi",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wadiibasmi/formik-mui-fields.git"
+  },
+  "homepage": "https://github.com/wadiibasmi/formik-mui-fields#readme",
+  "bugs": {
+    "url": "https://github.com/wadiibasmi/formik-mui-fields/issues"
+  },
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "dev": "tsup --watch",
+    "build": "tsup",
+    "test": "vitest run",
+    "lint": "eslint src/",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "pnpm run build",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "prepare": "husky"
+  },
+  "dependencies": {
+    "react-color": "^2.19.3",
+    "react-image-crop": "^11.0.10"
+  },
+  "peerDependencies": {
+    "@mui/material": ">=7",
+    "@mui/x-date-pickers": ">=7",
+    "dayjs": ">=1",
+    "formik": ">=2",
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "peerDependenciesMeta": {
+    "@mui/x-date-pickers": {
+      "optional": true
+    },
+    "dayjs": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@chromatic-com/storybook": "^5.1.1",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@eslint/js": "^10.0.1",
+    "@mui/x-date-pickers": "^8.27.2",
+    "@storybook/addon-a11y": "^10.3.3",
+    "@storybook/addon-docs": "^10.3.3",
+    "@storybook/addon-onboarding": "^10.3.3",
+    "@storybook/addon-vitest": "^10.3.3",
+    "@storybook/react-vite": "^10.3.3",
+    "@testing-library/react": "^16.3.2",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-color": "^3.0.13",
+    "@vitest/browser-playwright": "^4.1.2",
+    "@vitest/coverage-v8": "^4.1.2",
+    "dayjs": "^1.11.20",
+    "eslint": "^10.1.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "husky": "^9.1.7",
+    "jsdom": "^26.1.0",
+    "playwright": "^1.58.2",
+    "prettier": "^3.8.1",
+    "storybook": "^10.3.3",
+    "tsup": "^8.5.1",
+    "typescript-eslint": "^8.57.2",
+    "vitest": "^4.1.2"
+  }
+}
