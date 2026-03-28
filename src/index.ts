@@ -10,4 +10,3 @@ export { default as FormikSwitch } from "./FormikSwitch/FormikSwitch";
 export { default as FormikAutocomplete } from "./FormikAutocomplete/FormikAutocomplete";
 export { default as FormikRating } from "./FormikRating/FormikRating";
 export { default as FormikToggleButtonGroup } from "./FormikToggleButtonGroup/FormikToggleButtonGroup";
-export { default as FormikDatePicker } from "./FormikDatePicker/FormikDatePicker";

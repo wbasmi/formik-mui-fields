@@ -1,6 +1,6 @@
 {
   "name": "formik-mui-fields",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Formik-connected MUI form field components with automatic value, validation, and error handling",
   "keywords": [
     "formik",
@@ -45,6 +45,16 @@
       "require": {
         "types": "./dist/index.d.cts",
         "default": "./dist/index.cjs"
+      }
+    },
+    "./date-picker": {
+      "import": {
+        "types": "./dist/date-picker.d.ts",
+        "default": "./dist/date-picker.js"
+      },
+      "require": {
+        "types": "./dist/date-picker.d.cts",
+        "default": "./dist/date-picker.cjs"
       }
     }
   },
