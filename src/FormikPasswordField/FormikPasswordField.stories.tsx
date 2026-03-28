@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { Lock, LockOpen } from "@mui/icons-material";
 import { withFormik } from "../test-utils/FormikDecorator";
 import FormikPasswordField from "./FormikPasswordField";
 
@@ -15,6 +16,15 @@ export const Default: Story = {
   args: {
     name: "password",
     label: "Password",
+  },
+};
+
+export const CustomIcons: Story = {
+  args: {
+    name: "password",
+    label: "Password",
+    visiblePasswordIcon: <LockOpen />,
+    hiddenPasswordIcon: <Lock />,
   },
 };
 
