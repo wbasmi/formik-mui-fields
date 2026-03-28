@@ -130,6 +130,28 @@ Google Fonts autocomplete. Fetches font list from `/api/google/fonts` and inject
 <FormikFontPicker name="fontFamily" label="Font" />
 ```
 
+### FormikNumberField
+
+Numeric input that stores actual `number` values (not strings). Supports `min`, `max`, and `step`.
+
+```tsx
+<FormikNumberField
+  name="quantity"
+  label="Quantity"
+  min={1}
+  max={100}
+  step={1}
+/>
+```
+
+### FormikPasswordField
+
+Password input with a show/hide visibility toggle. Accepts optional custom icons via `visiblePasswordIcon` and `hiddenPasswordIcon`.
+
+```tsx
+<FormikPasswordField name="password" label="Password" />
+```
+
 ### FormikImageUpload
 
 Drag-and-drop style image upload with optional cropping dialog. Supports configurable aspect ratios (`1.91:1`, `1:1`, `3:1`).
@@ -146,6 +168,22 @@ Drag-and-drop style image upload with optional cropping dialog. Supports configu
   cropEnabled
   cropOptions={["1.91:1", "1:1"]}
 />;
+```
+
+### Date & Time Pickers
+
+Imported separately from `formik-mui-fields/date-picker`. Requires `@mui/x-date-pickers` and `dayjs` as peer dependencies.
+
+```tsx
+import {
+  FormikDatePicker,
+  FormikTimePicker,
+  FormikDateTimePicker,
+} from "formik-mui-fields/date-picker";
+
+<FormikDatePicker name="date" label="Date" />
+<FormikTimePicker name="time" label="Time" />
+<FormikDateTimePicker name="datetime" label="Date & Time" />
 ```
 
 ## Usage
@@ -184,9 +222,12 @@ const MyForm = () => (
 
 ## Peer Dependencies
 
-| Package         | Version |
-| --------------- | ------- |
-| `@mui/material` | >= 7    |
-| `formik`        | >= 2    |
-| `react`         | >= 18   |
-| `react-dom`     | >= 18   |
+| Package               | Version | Required                           |
+| --------------------- | ------- | ---------------------------------- |
+| `@mui/material`       | >= 7    | Yes                                |
+| `formik`              | >= 2    | Yes                                |
+| `react`               | >= 18   | Yes                                |
+| `react-dom`           | >= 18   | Yes                                |
+| `@mui/x-date-pickers` | >= 7    | Optional — for date/time pickers   |
+| `dayjs`               | >= 1    | Optional — for date/time pickers   |
+| `@mui/icons-material` | >= 7    | Optional — for FormikPasswordField |
