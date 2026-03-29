@@ -1,6 +1,6 @@
 {
   "name": "formik-mui-fields",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "publishConfig": {
     "access": "public"
   },
@@ -79,7 +79,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "prepare": "husky",
-    "version": "changeset version"
+    "changeset": "changeset",
+    "changeset:version": "changeset version"
   },
   "dependencies": {
     "react-color": "^2.19.3",
