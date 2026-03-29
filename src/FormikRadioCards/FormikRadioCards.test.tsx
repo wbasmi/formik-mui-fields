@@ -156,12 +156,11 @@ describe("FormikRadioCards", () => {
       render(
         <FormikRadioCards name="plan" options={options} direction="row" />,
       );
-      // Find the Box that wraps the options (has flexDirection)
-      const boxCalls = MockBox.mock.calls.filter(
-        (call: any[]) => call[0].sx?.flexDirection,
-      );
-      expect(boxCalls[0][0].sx).toEqual(
-        expect.objectContaining({ flexDirection: "row" }),
+      expect(MockBox).toHaveBeenCalledWith(
+        expect.objectContaining({
+          sx: expect.objectContaining({ flexDirection: "row" }),
+        }),
+        undefined,
       );
     });
   });

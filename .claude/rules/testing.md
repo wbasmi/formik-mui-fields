@@ -5,7 +5,7 @@
 - Vitest with `jsdom` environment and `globals: true`
 - `@testing-library/react` for rendering components
 - Config: `vitest.config.ts`
-- Run tests: `npm test`
+- Run tests: `pnpm test`
 
 ## Philosophy
 

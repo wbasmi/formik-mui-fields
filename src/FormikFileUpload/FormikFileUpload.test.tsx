@@ -65,31 +65,35 @@ describe("FormikFileUpload", () => {
   describe("when label is provided", () => {
     it("renders Typography with the label", () => {
       render(<FormikFileUpload name="document" label="Upload document" />);
-      const labelCall = MockTypography.mock.calls.find(
-        (call: any[]) =>
-          call[0].children === "Upload document" && call[0].sx?.mb,
+      expect(MockTypography).toHaveBeenCalledWith(
+        expect.objectContaining({
+          children: "Upload document",
+          sx: { mb: 1 },
+        }),
+        undefined,
       );
-      expect(labelCall).toBeDefined();
     });
   });
 
   describe("when no label is provided", () => {
     it("does not render the label Typography", () => {
       render(<FormikFileUpload name="document" />);
-      const labelCall = MockTypography.mock.calls.find(
-        (call: any[]) => call[0].sx?.mb,
+      expect(MockTypography).not.toHaveBeenCalledWith(
+        expect.objectContaining({ sx: { mb: 1 } }),
+        undefined,
       );
-      expect(labelCall).toBeUndefined();
     });
   });
 
   describe("when no file is selected", () => {
     it("renders the no file selected text", () => {
       render(<FormikFileUpload name="document" />);
-      const textCall = MockTypography.mock.calls.find(
-        (call: any[]) => call[0].children === "No file selected",
+      expect(MockTypography).toHaveBeenCalledWith(
+        expect.objectContaining({
+          children: "No file selected",
+        }),
+        undefined,
       );
-      expect(textCall).toBeDefined();
     });
   });
 
@@ -104,10 +108,12 @@ describe("FormikFileUpload", () => {
         mockHelpers,
       ]);
       render(<FormikFileUpload name="document" />);
-      const textCall = MockTypography.mock.calls.find(
-        (call: any[]) => call[0].children === "test.pdf",
+      expect(MockTypography).toHaveBeenCalledWith(
+        expect.objectContaining({
+          children: "test.pdf",
+        }),
+        undefined,
       );
-      expect(textCall).toBeDefined();
     });
   });
 
@@ -122,10 +128,10 @@ describe("FormikFileUpload", () => {
 
     it("renders Button with custom text", () => {
       render(<FormikFileUpload name="document" buttonText="Browse" />);
-      const buttonCall = MockButton.mock.calls.find(
-        (call: any[]) => call[0].children === "Browse",
+      expect(MockButton).toHaveBeenCalledWith(
+        expect.objectContaining({ children: "Browse" }),
+        undefined,
       );
-      expect(buttonCall).toBeDefined();
     });
   });
 
@@ -201,10 +207,12 @@ describe("FormikFileUpload", () => {
         mockHelpers,
       ]);
       render(<FormikFileUpload name="documents" multiple />);
-      const textCall = MockTypography.mock.calls.find(
-        (call: any[]) => call[0].children === "file1.pdf, file2.csv",
+      expect(MockTypography).toHaveBeenCalledWith(
+        expect.objectContaining({
+          children: "file1.pdf, file2.csv",
+        }),
+        undefined,
       );
-      expect(textCall).toBeDefined();
     });
   });
 });

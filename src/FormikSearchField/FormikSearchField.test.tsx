@@ -2,6 +2,7 @@ import { type Mock } from "vitest";
 import { render } from "@testing-library/react";
 import { useField } from "formik";
 import { IconButton, InputAdornment, TextField } from "@mui/material";
+import { useDebouncedCallback } from "use-debounce";
 import FormikSearchField from "./FormikSearchField";
 
 vi.mock("formik", () => ({
@@ -21,6 +22,17 @@ vi.mock("@mui/icons-material/Search", () => ({
 vi.mock("@mui/icons-material/Close", () => ({
   default: vi.fn(() => null),
 }));
+
+const mockDebouncedFn = Object.assign(vi.fn(), { cancel: vi.fn() });
+
+vi.mock("use-debounce", () => ({
+  useDebouncedCallback: vi.fn((fn: Function) => {
+    mockDebouncedFn.mockImplementation(fn);
+    return mockDebouncedFn;
+  }),
+}));
+
+const mockUseDebouncedCallback = useDebouncedCallback as unknown as Mock;
 
 const mockUseField = useField as Mock;
 const MockTextField = TextField as unknown as Mock;
@@ -153,7 +165,7 @@ describe("FormikSearchField", () => {
   });
 
   describe("when clear button is clicked", () => {
-    it("calls setValue with empty string", () => {
+    it("calls setValue with empty string and cancels debounce", () => {
       mockUseField.mockReturnValue([
         { ...defaultField, value: "test" },
         defaultMeta,
@@ -162,23 +174,29 @@ describe("FormikSearchField", () => {
       render(<FormikSearchField name="query" />);
       const slotProps = MockTextField.mock.calls[0][0].slotProps;
       const clearButton = slotProps.input.endAdornment;
-      // The endAdornment contains an IconButton with onClick
       const iconButtonProps = clearButton.props.children.props;
       iconButtonProps.onClick();
+      expect(mockDebouncedFn.cancel).toHaveBeenCalled();
       expect(mockHelpers.setValue).toHaveBeenCalledWith("");
     });
   });
 
   describe("when onChange triggers debounced setValue", () => {
-    it("calls setValue after debounce", () => {
-      vi.useFakeTimers();
+    it("calls the debounced callback with the value", () => {
       render(<FormikSearchField name="query" debounceMs={300} />);
       const onChange = MockTextField.mock.calls[0][0].onChange;
       onChange({ target: { value: "hello" } });
-      expect(mockHelpers.setValue).not.toHaveBeenCalled();
-      vi.advanceTimersByTime(300);
-      expect(mockHelpers.setValue).toHaveBeenCalledWith("hello");
-      vi.useRealTimers();
+      expect(mockDebouncedFn).toHaveBeenCalledWith("hello");
+    });
+  });
+
+  describe("when useDebouncedCallback is called", () => {
+    it("passes the correct debounce delay", () => {
+      render(<FormikSearchField name="query" debounceMs={500} />);
+      expect(mockUseDebouncedCallback).toHaveBeenCalledWith(
+        expect.any(Function),
+        500,
+      );
     });
   });
 });

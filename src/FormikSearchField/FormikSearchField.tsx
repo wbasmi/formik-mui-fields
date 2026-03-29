@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useCallback, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   IconButton,
   InputAdornment,
@@ -10,6 +10,7 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
 import { useField } from "formik";
+import { useDebouncedCallback } from "use-debounce";
 
 type Props = {
   name: string;
@@ -22,23 +23,14 @@ type Props = {
 const FormikSearchField = ({ name, debounceMs = 300, ...props }: Props) => {
   const [field, meta, helpers] = useField(name);
   const [localValue, setLocalValue] = useState<string>(field.value ?? "");
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     setLocalValue(field.value ?? "");
   }, [field.value]);
 
-  const debouncedSetValue = useCallback(
-    (value: string) => {
-      if (timerRef.current) {
-        clearTimeout(timerRef.current);
-      }
-      timerRef.current = setTimeout(() => {
-        helpers.setValue(value);
-      }, debounceMs);
-    },
-    [helpers, debounceMs],
-  );
+  const debouncedSetValue = useDebouncedCallback((value: string) => {
+    helpers.setValue(value);
+  }, debounceMs);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -48,9 +40,7 @@ const FormikSearchField = ({ name, debounceMs = 300, ...props }: Props) => {
 
   const handleClear = () => {
     setLocalValue("");
-    if (timerRef.current) {
-      clearTimeout(timerRef.current);
-    }
+    debouncedSetValue.cancel();
     helpers.setValue("");
   };
 

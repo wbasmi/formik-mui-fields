@@ -1,5 +1,9 @@
 # Project Structure
 
+## Package manager
+
+The project uses pnpm.
+
 ```
 formik-mui-fields/
 ├── .claude/

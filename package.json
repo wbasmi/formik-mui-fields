@@ -83,7 +83,8 @@
   },
   "dependencies": {
     "react-color": "^2.19.3",
-    "react-image-crop": "^11.0.10"
+    "react-image-crop": "^11.0.10",
+    "use-debounce": "^10.1.0"
   },
   "peerDependencies": {
     "@mui/icons-material": ">=7",
