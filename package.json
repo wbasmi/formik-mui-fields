@@ -83,6 +83,10 @@
     "changeset:version": "changeset version"
   },
   "dependencies": {
+    "@tiptap/extension-link": "^3.21.0",
+    "@tiptap/extension-placeholder": "^3.21.0",
+    "@tiptap/react": "^3.21.0",
+    "@tiptap/starter-kit": "^3.21.0",
     "react-color": "^2.19.3",
     "react-image-crop": "^11.0.10",
     "use-debounce": "^10.1.0"
