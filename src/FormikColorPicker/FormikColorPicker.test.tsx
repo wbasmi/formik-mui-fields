@@ -69,10 +69,12 @@ describe("FormikColorPicker", () => {
   describe("when rendered", () => {
     it("renders the color swatch Box with the field value as backgroundColor", () => {
       render(<FormikColorPicker name="color" />);
-      const swatchCall = MockBox.mock.calls.find(
-        (call: any[]) => call[0].sx?.backgroundColor === "#1976d2",
+      expect(MockBox).toHaveBeenCalledWith(
+        expect.objectContaining({
+          sx: expect.objectContaining({ backgroundColor: "#1976d2" }),
+        }),
+        undefined,
       );
-      expect(swatchCall).toBeDefined();
     });
 
     it("renders Popper with open false initially", () => {
@@ -87,11 +89,11 @@ describe("FormikColorPicker", () => {
   describe("when the swatch is clicked", () => {
     it("opens the Popper", () => {
       render(<FormikColorPicker name="color" />);
-      const swatchCall = MockBox.mock.calls.find(
+      const swatchProps = MockBox.mock.calls.find(
         (call: any[]) => call[0].onClick,
-      );
+      )![0];
       act(() => {
-        swatchCall![0].onClick();
+        swatchProps.onClick();
       });
       const lastPopperCall =
         MockPopper.mock.calls[MockPopper.mock.calls.length - 1];

@@ -63,27 +63,35 @@ describe("FormikImageUpload", () => {
   describe("when label is provided", () => {
     it("renders Typography with the label", () => {
       render(<FormikImageUpload name="avatar" label="Upload avatar" />);
-      expect(MockTypography).toHaveBeenCalled();
+      expect(MockTypography).toHaveBeenCalledWith(
+        expect.objectContaining({
+          children: "Upload avatar",
+          sx: { mb: 1 },
+        }),
+        undefined,
+      );
     });
   });
 
   describe("when no label is provided", () => {
     it("does not render Typography label", () => {
       render(<FormikImageUpload name="avatar" />);
-      const typographyCalls = MockTypography.mock.calls.filter(
-        (call: any[]) => call[0].color === "text.secondary" && call[0].sx?.mb,
+      expect(MockTypography).not.toHaveBeenCalledWith(
+        expect.objectContaining({ sx: { mb: 1 } }),
+        undefined,
       );
-      expect(typographyCalls).toHaveLength(0);
     });
   });
 
   describe("when no image is uploaded", () => {
     it("renders the upload placeholder text", () => {
       render(<FormikImageUpload name="avatar" />);
-      const placeholderCall = MockTypography.mock.calls.find(
-        (call: any[]) => call[0].children === "Upload image",
+      expect(MockTypography).toHaveBeenCalledWith(
+        expect.objectContaining({
+          children: "Upload image",
+        }),
+        undefined,
       );
-      expect(placeholderCall).toBeDefined();
     });
   });
 
@@ -95,20 +103,24 @@ describe("FormikImageUpload", () => {
         mockHelpers,
       ]);
       render(<FormikImageUpload name="avatar" />);
-      const placeholderCall = MockTypography.mock.calls.find(
-        (call: any[]) => call[0].children === "Upload image",
+      expect(MockTypography).not.toHaveBeenCalledWith(
+        expect.objectContaining({
+          children: "Upload image",
+        }),
+        undefined,
       );
-      expect(placeholderCall).toBeUndefined();
     });
   });
 
   describe("when height is provided", () => {
     it("renders the dropzone Box with the custom height", () => {
       render(<FormikImageUpload name="avatar" height={200} />);
-      const dropzoneCall = MockBox.mock.calls.find(
-        (call: any[]) => call[0].sx?.height === 200,
+      expect(MockBox).toHaveBeenCalledWith(
+        expect.objectContaining({
+          sx: expect.objectContaining({ height: 200 }),
+        }),
+        undefined,
       );
-      expect(dropzoneCall).toBeDefined();
     });
   });
 
@@ -154,10 +166,12 @@ describe("FormikImageUpload", () => {
   describe("when rendered with default height", () => {
     it("uses 120 as the dropzone height", () => {
       render(<FormikImageUpload name="avatar" />);
-      const dropzoneCall = MockBox.mock.calls.find(
-        (call: any[]) => call[0].sx?.height === 120,
+      expect(MockBox).toHaveBeenCalledWith(
+        expect.objectContaining({
+          sx: expect.objectContaining({ height: 120 }),
+        }),
+        undefined,
       );
-      expect(dropzoneCall).toBeDefined();
     });
   });
 });
