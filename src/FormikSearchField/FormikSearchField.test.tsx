@@ -26,7 +26,7 @@ vi.mock("@mui/icons-material/Close", () => ({
 const mockDebouncedFn = Object.assign(vi.fn(), { cancel: vi.fn() });
 
 vi.mock("use-debounce", () => ({
-  useDebouncedCallback: vi.fn((fn: Function) => {
+  useDebouncedCallback: vi.fn((fn: (a: unknown) => unknown) => {
     mockDebouncedFn.mockImplementation(fn);
     return mockDebouncedFn;
   }),

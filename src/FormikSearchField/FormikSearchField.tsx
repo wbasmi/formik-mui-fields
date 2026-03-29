@@ -25,7 +25,9 @@ const FormikSearchField = ({ name, debounceMs = 300, ...props }: Props) => {
   const [localValue, setLocalValue] = useState<string>(field.value ?? "");
 
   useEffect(() => {
-    setLocalValue(field.value ?? "");
+    setTimeout(() => {
+      setLocalValue(field.value ?? "");
+    }, 0);
   }, [field.value]);
 
   const debouncedSetValue = useDebouncedCallback((value: string) => {
