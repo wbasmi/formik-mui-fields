@@ -1,6 +1,7 @@
 ---
 name: create-version-changeset
 description: Create a changeset for versioning and changelog generation.
+model: sonnet
 ---
 
 To create a changeset for versioning and changelog generation, follow these steps:

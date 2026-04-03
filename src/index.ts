@@ -16,3 +16,6 @@ export { default as FormikFileUpload } from "./FormikFileUpload/FormikFileUpload
 export { default as FormikChipInput } from "./FormikChipInput/FormikChipInput";
 export { default as FormikRadioCards } from "./FormikRadioCards/FormikRadioCards";
 export { default as FormikSearchField } from "./FormikSearchField/FormikSearchField";
+export { default as FormikCurrencyField } from "./FormikCurrencyField/FormikCurrencyField";
+export { default as FormikPhoneField } from "./FormikPhoneField/FormikPhoneField";
+export { default as FormikRichTextField } from "./FormikRichTextField/FormikRichTextField";

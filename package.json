@@ -1,6 +1,6 @@
 {
   "name": "formik-mui-fields",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "publishConfig": {
     "access": "public"
   },
@@ -29,11 +29,11 @@
   "author": "Wadii Basmi",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wadiibasmi/formik-mui-fields.git"
+    "url": "git+https://github.com/wbasmi/formik-mui-fields.git"
   },
-  "homepage": "https://github.com/wadiibasmi/formik-mui-fields#readme",
+  "homepage": "https://github.com/wbasmi/formik-mui-fields#readme",
   "bugs": {
-    "url": "https://github.com/wadiibasmi/formik-mui-fields/issues"
+    "url": "https://github.com/wbasmi/formik-mui-fields/issues"
   },
   "type": "module",
   "main": "./dist/index.cjs",
@@ -83,6 +83,12 @@
     "changeset:version": "changeset version"
   },
   "dependencies": {
+    "@tiptap/extension-link": "^3.21.0",
+    "@tiptap/extension-placeholder": "^3.21.0",
+    "@tiptap/react": "^3.21.0",
+    "@tiptap/starter-kit": "^3.21.0",
+    "country-codes-list": "^2.0.0",
+    "country-flag-icons": "^1.6.15",
     "react-color": "^2.19.3",
     "react-image-crop": "^11.0.10",
     "use-debounce": "^10.1.0"
