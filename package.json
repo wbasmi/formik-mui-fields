@@ -1,6 +1,6 @@
 {
   "name": "formik-mui-fields",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "publishConfig": {
     "access": "public"
   },
@@ -87,6 +87,8 @@
     "@tiptap/extension-placeholder": "^3.21.0",
     "@tiptap/react": "^3.21.0",
     "@tiptap/starter-kit": "^3.21.0",
+    "country-codes-list": "^2.0.0",
+    "country-flag-icons": "^1.6.15",
     "react-color": "^2.19.3",
     "react-image-crop": "^11.0.10",
     "use-debounce": "^10.1.0"
