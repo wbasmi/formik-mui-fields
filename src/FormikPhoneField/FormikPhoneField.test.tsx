@@ -2,6 +2,7 @@ import { type Mock } from "vitest";
 import { render } from "@testing-library/react";
 import { useField } from "formik";
 import {
+  Box,
   FormControl,
   FormHelperText,
   FormLabel,
@@ -12,11 +13,34 @@ import {
 } from "@mui/material";
 import FormikPhoneField from "./FormikPhoneField";
 
+vi.mock("country-codes-list", () => ({
+  all: vi.fn(() => [
+    {
+      countryCode: "US",
+      countryNameEn: "United States",
+      countryCallingCode: "1",
+    },
+    {
+      countryCode: "GB",
+      countryNameEn: "United Kingdom",
+      countryCallingCode: "44",
+    },
+    { countryCode: "DE", countryNameEn: "Germany", countryCallingCode: "49" },
+  ]),
+}));
+
+vi.mock("country-flag-icons/react/3x2", () => ({
+  US: vi.fn(() => null),
+  GB: vi.fn(() => null),
+  DE: vi.fn(() => null),
+}));
+
 vi.mock("formik", () => ({
   useField: vi.fn(),
 }));
 
 vi.mock("@mui/material", () => ({
+  Box: vi.fn(({ children }: any) => children),
   FormControl: vi.fn(({ children }: any) => children),
   FormHelperText: vi.fn(() => null),
   FormLabel: vi.fn(() => null),

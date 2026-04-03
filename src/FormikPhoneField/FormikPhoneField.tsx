@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  Box,
   FormControl,
   FormHelperText,
   FormLabel,
@@ -10,6 +11,8 @@ import {
   TextField,
   type TextFieldProps,
 } from "@mui/material";
+import { all, type CountryData } from "country-codes-list";
+import * as Flags from "country-flag-icons/react/3x2";
 import { useField } from "formik";
 
 type Country = {
@@ -18,23 +21,13 @@ type Country = {
   dialCode: string;
 };
 
-const COUNTRIES: Country[] = [
-  { code: "US", name: "United States", dialCode: "+1" },
-  { code: "GB", name: "United Kingdom", dialCode: "+44" },
-  { code: "CA", name: "Canada", dialCode: "+1" },
-  { code: "AU", name: "Australia", dialCode: "+61" },
-  { code: "DE", name: "Germany", dialCode: "+49" },
-  { code: "FR", name: "France", dialCode: "+33" },
-  { code: "IT", name: "Italy", dialCode: "+39" },
-  { code: "ES", name: "Spain", dialCode: "+34" },
-  { code: "BR", name: "Brazil", dialCode: "+55" },
-  { code: "MX", name: "Mexico", dialCode: "+52" },
-  { code: "IN", name: "India", dialCode: "+91" },
-  { code: "CN", name: "China", dialCode: "+86" },
-  { code: "JP", name: "Japan", dialCode: "+81" },
-  { code: "KR", name: "South Korea", dialCode: "+82" },
-  { code: "NL", name: "Netherlands", dialCode: "+31" },
-];
+const COUNTRIES: Country[] = all()
+  .filter((c: CountryData) => c.countryCallingCode)
+  .map((c: CountryData) => ({
+    code: c.countryCode,
+    name: c.countryNameEn,
+    dialCode: `+${c.countryCallingCode}`,
+  }));
 
 const findCountryByDialCode = (phone: string): Country | undefined => {
   const sorted = [...COUNTRIES].sort(
@@ -133,11 +126,26 @@ const FormikPhoneField = ({
                   disableUnderline
                   sx={{ minWidth: 80 }}
                 >
-                  {sortedCountries.map((country) => (
-                    <MenuItem key={country.code} value={country.code}>
-                      {country.code} {country.dialCode}
-                    </MenuItem>
-                  ))}
+                  {sortedCountries.map((country) => {
+                    const FlagComponent =
+                      Flags[country.code as keyof typeof Flags];
+                    return (
+                      <MenuItem key={country.code} value={country.code}>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: 1,
+                          }}
+                        >
+                          {FlagComponent && (
+                            <FlagComponent style={{ width: 20, height: 14 }} />
+                          )}
+                          {country.code} {country.dialCode}
+                        </Box>
+                      </MenuItem>
+                    );
+                  })}
                 </Select>
               </InputAdornment>
             ),
