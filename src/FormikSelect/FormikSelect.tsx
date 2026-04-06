@@ -3,7 +3,7 @@
 import {
   FormControl,
   FormHelperText,
-  FormLabel,
+  InputLabel,
   MenuItem,
   Select,
   type SelectProps,
@@ -22,8 +22,8 @@ const FormikSelect = ({ name, label, options, ...props }: Props) => {
 
   return (
     <FormControl fullWidth error={hasError}>
-      {label && <FormLabel>{label}</FormLabel>}
-      <Select {...field} {...props}>
+      {label && <InputLabel>{label}</InputLabel>}
+      <Select {...field} {...props} label={label}>
         {options.map((option) => (
           <MenuItem key={option.value} value={option.value}>
             {option.label}
