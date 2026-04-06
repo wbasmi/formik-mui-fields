@@ -15,12 +15,21 @@ import { useDebouncedCallback } from "use-debounce";
 type Props = {
   name: string;
   debounceMs?: number;
+  onChange?: (
+    value: string,
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => void;
 } & Omit<
   TextFieldProps,
   "name" | "value" | "onChange" | "onBlur" | "error" | "helperText"
 >;
 
-const FormikSearchField = ({ name, debounceMs = 300, ...props }: Props) => {
+const FormikSearchField = ({
+  name,
+  debounceMs = 300,
+  onChange,
+  ...props
+}: Props) => {
   const [field, meta, helpers] = useField(name);
   const [localValue, setLocalValue] = useState<string>(field.value ?? "");
 
@@ -38,6 +47,7 @@ const FormikSearchField = ({ name, debounceMs = 300, ...props }: Props) => {
     const value = e.target.value;
     setLocalValue(value);
     debouncedSetValue(value);
+    onChange?.(value, e);
   };
 
   const handleClear = () => {

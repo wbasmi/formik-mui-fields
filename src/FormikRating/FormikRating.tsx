@@ -12,9 +12,10 @@ import { useField } from "formik";
 type Props = {
   name: string;
   label?: string;
+  onChange?: (value: number | null, event: React.SyntheticEvent) => void;
 } & Omit<RatingProps, "name" | "value" | "onChange">;
 
-const FormikRating = ({ name, label, ...props }: Props) => {
+const FormikRating = ({ name, label, onChange, ...props }: Props) => {
   const [field, meta, helpers] = useField(name);
   const hasError = meta.touched && Boolean(meta.error);
 
@@ -25,7 +26,10 @@ const FormikRating = ({ name, label, ...props }: Props) => {
         {...props}
         name={name}
         value={field.value ?? null}
-        onChange={(_, newValue) => helpers.setValue(newValue)}
+        onChange={(event, newValue) => {
+          helpers.setValue(newValue);
+          onChange?.(newValue, event);
+        }}
         onBlur={field.onBlur}
       />
       {hasError && <FormHelperText>{meta.error}</FormHelperText>}

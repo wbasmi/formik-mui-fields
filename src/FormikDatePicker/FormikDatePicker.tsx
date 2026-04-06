@@ -10,9 +10,10 @@ import { useField } from "formik";
 type Props = {
   name: string;
   label?: string;
+  onChange?: (value: unknown) => void;
 } & Omit<DatePickerProps, "value" | "onChange">;
 
-const FormikDatePicker = ({ name, label, ...props }: Props) => {
+const FormikDatePicker = ({ name, label, onChange, ...props }: Props) => {
   const [field, meta, helpers] = useField(name);
   const hasError = meta.touched && Boolean(meta.error);
 
@@ -22,7 +23,10 @@ const FormikDatePicker = ({ name, label, ...props }: Props) => {
       <DatePicker
         {...props}
         value={field.value ?? null}
-        onChange={(value) => helpers.setValue(value)}
+        onChange={(value) => {
+          helpers.setValue(value);
+          onChange?.(value);
+        }}
         slotProps={{
           textField: {
             onBlur: () => helpers.setTouched(true),

@@ -14,9 +14,16 @@ type Props = {
   name: string;
   label?: string;
   options: { value: string; label: string }[];
+  onChange?: (value: string) => void;
 } & Omit<ToggleButtonGroupProps, "value" | "onChange">;
 
-const FormikToggleButtonGroup = ({ name, label, options, ...props }: Props) => {
+const FormikToggleButtonGroup = ({
+  name,
+  label,
+  options,
+  onChange,
+  ...props
+}: Props) => {
   const [field, meta, helpers] = useField(name);
   const hasError = meta.touched && Boolean(meta.error);
 
@@ -29,6 +36,7 @@ const FormikToggleButtonGroup = ({ name, label, options, ...props }: Props) => {
         onChange={(_, newValue) => {
           if (newValue !== null) {
             helpers.setValue(newValue);
+            onChange?.(newValue);
           }
         }}
         onBlur={field.onBlur}

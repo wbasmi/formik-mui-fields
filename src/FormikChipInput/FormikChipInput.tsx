@@ -16,6 +16,7 @@ type Props = {
   label?: string;
   placeholder?: string;
   options?: string[];
+  onChange?: (value: string[]) => void;
 } & Omit<
   AutocompleteProps<string, true, false, true>,
   | "renderInput"
@@ -33,6 +34,7 @@ const FormikChipInput = ({
   label,
   placeholder,
   options = [],
+  onChange,
   ...props
 }: Props) => {
   const [field, meta, helpers] = useField<string[]>(name);
@@ -47,7 +49,11 @@ const FormikChipInput = ({
         freeSolo
         options={options}
         value={field.value ?? []}
-        onChange={(_, newValue) => helpers.setValue(newValue as string[])}
+        onChange={(_, newValue) => {
+          const value = newValue as string[];
+          helpers.setValue(value);
+          onChange?.(value);
+        }}
         onBlur={() => helpers.setTouched(true)}
         renderTags={(value, getTagProps) =>
           value.map((option, index) => (

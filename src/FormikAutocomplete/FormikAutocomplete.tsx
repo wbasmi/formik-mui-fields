@@ -15,6 +15,7 @@ type Props<T> = {
   options: T[];
   getOptionLabel: (option: T) => string;
   isOptionEqualToValue?: (option: T, value: T) => boolean;
+  onChange?: (value: T | null) => void;
 } & Omit<
   AutocompleteProps<T, false, false, false>,
   | "renderInput"
@@ -32,6 +33,7 @@ const FormikAutocomplete = <T,>({
   options,
   getOptionLabel,
   isOptionEqualToValue,
+  onChange,
   ...props
 }: Props<T>) => {
   const [field, meta, helpers] = useField(name);
@@ -46,7 +48,10 @@ const FormikAutocomplete = <T,>({
         getOptionLabel={getOptionLabel}
         isOptionEqualToValue={isOptionEqualToValue}
         value={field.value ?? null}
-        onChange={(_, newValue) => helpers.setValue(newValue)}
+        onChange={(_, newValue) => {
+          helpers.setValue(newValue);
+          onChange?.(newValue);
+        }}
         onBlur={() => helpers.setTouched(true)}
         renderInput={(params) => (
           <TextField

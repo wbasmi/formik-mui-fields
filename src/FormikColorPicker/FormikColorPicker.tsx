@@ -14,15 +14,17 @@ import { ChromePicker, type ColorResult } from "react-color";
 type Props = {
   name: string;
   label?: string;
+  onChange?: (value: string) => void;
 };
 
-const FormikColorPicker = ({ name, label }: Props) => {
+const FormikColorPicker = ({ name, label, onChange }: Props) => {
   const [field, , helpers] = useField(name);
   const [open, setOpen] = useState(false);
   const anchorRef = useRef<HTMLDivElement>(null);
 
   const handleChange = (color: ColorResult) => {
     helpers.setValue(color.hex);
+    onChange?.(color.hex);
   };
 
   return (

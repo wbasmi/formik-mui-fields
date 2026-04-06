@@ -8,22 +8,36 @@ type Props = {
   min?: number;
   max?: number;
   step?: number;
+  onChange?: (
+    value: number | "",
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => void;
 } & Omit<
   TextFieldProps,
   "name" | "value" | "onChange" | "onBlur" | "error" | "helperText" | "type"
 >;
 
-const FormikNumberField = ({ name, min, max, step, ...props }: Props) => {
+const FormikNumberField = ({
+  name,
+  min,
+  max,
+  step,
+  onChange,
+  ...props
+}: Props) => {
   const [field, meta, helpers] = useField(name);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const raw = e.target.value;
     if (raw === "") {
       helpers.setValue("");
+      onChange?.("", e);
       return;
     }
     const parsed = parseFloat(raw);
-    helpers.setValue(isNaN(parsed) ? "" : parsed);
+    const value = isNaN(parsed) ? "" : parsed;
+    helpers.setValue(value);
+    onChange?.(value, e);
   };
 
   return (
