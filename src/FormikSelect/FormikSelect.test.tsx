@@ -5,7 +5,7 @@ import {
   Select,
   MenuItem,
   FormControl,
-  FormLabel,
+  InputLabel,
   FormHelperText,
 } from "@mui/material";
 import FormikSelect from "./FormikSelect";
@@ -18,7 +18,7 @@ vi.mock("@mui/material", () => ({
   Select: vi.fn(({ children }: any) => children),
   MenuItem: vi.fn(() => null),
   FormControl: vi.fn(({ children }: any) => children),
-  FormLabel: vi.fn(() => null),
+  InputLabel: vi.fn(() => null),
   FormHelperText: vi.fn(() => null),
 }));
 
@@ -26,7 +26,7 @@ const mockUseField = useField as Mock;
 const MockSelect = Select as unknown as Mock;
 const MockMenuItem = MenuItem as unknown as Mock;
 const MockFormControl = FormControl as unknown as Mock;
-const MockFormLabel = FormLabel as unknown as Mock;
+const MockInputLabel = InputLabel as unknown as Mock;
 const MockFormHelperText = FormHelperText as unknown as Mock;
 
 const defaultField = {
@@ -92,16 +92,16 @@ describe("FormikSelect", () => {
   });
 
   describe("when label is provided", () => {
-    it("renders FormLabel", () => {
+    it("renders InputLabel", () => {
       render(<FormikSelect name="fruit" label="Fruit" options={options} />);
-      expect(MockFormLabel).toHaveBeenCalled();
+      expect(MockInputLabel).toHaveBeenCalled();
     });
   });
 
   describe("when no label is provided", () => {
-    it("does not render FormLabel", () => {
+    it("does not render InputLabel", () => {
       render(<FormikSelect name="fruit" options={options} />);
-      expect(MockFormLabel).not.toHaveBeenCalled();
+      expect(MockInputLabel).not.toHaveBeenCalled();
     });
   });
 
