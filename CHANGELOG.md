@@ -1,5 +1,11 @@
 # formik-mui-fields
 
+## 0.3.2
+
+### Patch Changes
+
+- Fix select label showing outside the select field in FormikSelect
+
 ## 0.3.0
 
 ### Minor Changes
