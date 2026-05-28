@@ -1,5 +1,12 @@
 # formik-mui-fields
 
+## 0.4.0
+
+### Minor Changes
+
+- - Add onChange property to all components
+  - Add story example for Form usage
+
 ## 0.3.2
 
 ### Patch Changes

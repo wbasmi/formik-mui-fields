@@ -1,7 +1,13 @@
 import { type Mock } from "vitest";
 import { render } from "@testing-library/react";
 import { useField } from "formik";
-import { Box, FormControl, FormHelperText, Typography } from "@mui/material";
+import {
+  Box,
+  FormControl,
+  FormHelperText,
+  IconButton,
+  Typography,
+} from "@mui/material";
 import FormikImageUpload from "./FormikImageUpload";
 
 vi.mock("formik", () => ({
@@ -12,7 +18,12 @@ vi.mock("@mui/material", () => ({
   Box: vi.fn(({ children }: any) => children ?? null),
   FormControl: vi.fn(({ children }: any) => children),
   FormHelperText: vi.fn(() => null),
+  IconButton: vi.fn(() => null),
   Typography: vi.fn(() => null),
+}));
+
+vi.mock("@mui/icons-material", () => ({
+  Clear: vi.fn(() => null),
 }));
 
 vi.mock("../CropDialog/CropDialog", () => ({ default: vi.fn(() => null) }));
@@ -23,6 +34,7 @@ const mockUseField = useField as Mock;
 const MockBox = Box as unknown as Mock;
 const MockFormControl = FormControl as unknown as Mock;
 const MockFormHelperText = FormHelperText as unknown as Mock;
+const MockIconButton = IconButton as unknown as Mock;
 const MockTypography = Typography as unknown as Mock;
 const MockCropDialog = CropDialog as unknown as Mock;
 
@@ -160,6 +172,45 @@ describe("FormikImageUpload", () => {
     it("does not render FormHelperText", () => {
       render(<FormikImageUpload name="avatar" />);
       expect(MockFormHelperText).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("when no image is present", () => {
+    it("does not render the clear button", () => {
+      render(<FormikImageUpload name="avatar" />);
+      expect(MockIconButton).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("when an image is present", () => {
+    it("renders the clear button", () => {
+      mockUseField.mockReturnValue([
+        { ...defaultField, value: "blob:uploaded" },
+        defaultMeta,
+        mockHelpers,
+      ]);
+      render(<FormikImageUpload name="avatar" />);
+      expect(MockIconButton).toHaveBeenCalledWith(
+        expect.objectContaining({ "aria-label": "Clear image" }),
+        undefined,
+      );
+    });
+  });
+
+  describe("when the clear button is clicked", () => {
+    it("prevents default, stops propagation, and clears the value", () => {
+      mockUseField.mockReturnValue([
+        { ...defaultField, value: "blob:uploaded" },
+        defaultMeta,
+        mockHelpers,
+      ]);
+      render(<FormikImageUpload name="avatar" />);
+      const onClick = MockIconButton.mock.calls[0][0].onClick;
+      const event = { preventDefault: vi.fn(), stopPropagation: vi.fn() };
+      onClick(event);
+      expect(event.preventDefault).toHaveBeenCalled();
+      expect(event.stopPropagation).toHaveBeenCalled();
+      expect(mockHelpers.setValue).toHaveBeenCalledWith("");
     });
   });
 
