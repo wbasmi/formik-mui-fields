@@ -1,6 +1,13 @@
 "use client";
 
-import { Box, FormControl, FormHelperText, Typography } from "@mui/material";
+import {
+  Box,
+  FormControl,
+  FormHelperText,
+  IconButton,
+  Typography,
+} from "@mui/material";
+import { Clear } from "@mui/icons-material";
 import { useField } from "formik";
 import { useCallback, useState } from "react";
 
@@ -54,6 +61,16 @@ const FormikImageUpload = ({
     setRawImageSrc(null);
   }, []);
 
+  const handleClear = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
+      e.stopPropagation();
+      helpers.setValue("");
+      setRawImageSrc(null);
+    },
+    [helpers],
+  );
+
   return (
     <FormControl fullWidth error={hasError}>
       {label && (
@@ -67,6 +84,7 @@ const FormikImageUpload = ({
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          position: "relative",
           width: "100%",
           height,
           border: "2px dashed",
@@ -92,6 +110,22 @@ const FormikImageUpload = ({
           hidden
           onChange={handleFileChange}
         />
+        {field.value && (
+          <IconButton
+            aria-label="Clear image"
+            size="small"
+            onClick={handleClear}
+            sx={{
+              position: "absolute",
+              top: 4,
+              right: 4,
+              bgcolor: "background.paper",
+              "&:hover": { bgcolor: "background.paper" },
+            }}
+          >
+            <Clear fontSize="small" />
+          </IconButton>
+        )}
       </Box>
       {hasError && <FormHelperText>{meta.error}</FormHelperText>}
 

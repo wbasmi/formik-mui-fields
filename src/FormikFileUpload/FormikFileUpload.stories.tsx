@@ -56,3 +56,19 @@ export const Multiple: Story = {
     multiple: true,
   },
 };
+
+export const WithValue: Story = {
+  decorators: [
+    withFormik({
+      initialValues: {
+        document: new File(["content"], "report.pdf", {
+          type: "application/pdf",
+        }),
+      },
+    }),
+  ],
+  args: {
+    name: "document",
+    label: "Upload document",
+  },
+};

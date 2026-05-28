@@ -6,6 +6,7 @@ import {
   Button,
   FormControl,
   FormHelperText,
+  IconButton,
   Typography,
 } from "@mui/material";
 import FormikFileUpload from "./FormikFileUpload";
@@ -19,7 +20,12 @@ vi.mock("@mui/material", () => ({
   Button: vi.fn(({ children }: any) => children ?? null),
   FormControl: vi.fn(({ children }: any) => children),
   FormHelperText: vi.fn(() => null),
+  IconButton: vi.fn(() => null),
   Typography: vi.fn(() => null),
+}));
+
+vi.mock("@mui/icons-material", () => ({
+  Clear: vi.fn(() => null),
 }));
 
 const mockUseField = useField as Mock;
@@ -27,6 +33,7 @@ const MockBox = Box as unknown as Mock;
 const MockButton = Button as unknown as Mock;
 const MockFormControl = FormControl as unknown as Mock;
 const MockFormHelperText = FormHelperText as unknown as Mock;
+const MockIconButton = IconButton as unknown as Mock;
 const MockTypography = Typography as unknown as Mock;
 
 const mockHelpers = {
@@ -213,6 +220,106 @@ describe("FormikFileUpload", () => {
         }),
         undefined,
       );
+    });
+  });
+
+  describe("when the field value is null", () => {
+    it("does not render the clear IconButton", () => {
+      render(<FormikFileUpload name="document" />);
+      expect(MockIconButton).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("when the field value is an empty array", () => {
+    it("does not render the clear IconButton", () => {
+      mockUseField.mockReturnValue([
+        { ...defaultField, value: [] },
+        defaultMeta,
+        mockHelpers,
+      ]);
+      render(<FormikFileUpload name="documents" multiple />);
+      expect(MockIconButton).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("when a single file value is present", () => {
+    it("renders the clear IconButton with an aria-label", () => {
+      const file = new File(["content"], "test.pdf", {
+        type: "application/pdf",
+      });
+      mockUseField.mockReturnValue([
+        { ...defaultField, value: file },
+        defaultMeta,
+        mockHelpers,
+      ]);
+      render(<FormikFileUpload name="document" />);
+      expect(MockIconButton).toHaveBeenCalledWith(
+        expect.objectContaining({ "aria-label": "Clear file" }),
+        undefined,
+      );
+    });
+  });
+
+  describe("when a multiple file value is present", () => {
+    it("renders the clear IconButton", () => {
+      const files = [new File(["a"], "file1.pdf", { type: "application/pdf" })];
+      mockUseField.mockReturnValue([
+        { ...defaultField, value: files },
+        defaultMeta,
+        mockHelpers,
+      ]);
+      render(<FormikFileUpload name="documents" multiple />);
+      expect(MockIconButton).toHaveBeenCalledWith(
+        expect.objectContaining({ "aria-label": "Clear file" }),
+        undefined,
+      );
+    });
+  });
+
+  describe("when the clear IconButton onClick is invoked for a single field", () => {
+    it("calls helpers.setValue with null", () => {
+      const file = new File(["content"], "test.pdf", {
+        type: "application/pdf",
+      });
+      mockUseField.mockReturnValue([
+        { ...defaultField, value: file },
+        defaultMeta,
+        mockHelpers,
+      ]);
+      render(<FormikFileUpload name="document" />);
+      const onClick = MockIconButton.mock.calls[0][0].onClick;
+      onClick();
+      expect(mockHelpers.setValue).toHaveBeenCalledWith(null);
+    });
+
+    it("calls helpers.setTouched with true", () => {
+      const file = new File(["content"], "test.pdf", {
+        type: "application/pdf",
+      });
+      mockUseField.mockReturnValue([
+        { ...defaultField, value: file },
+        defaultMeta,
+        mockHelpers,
+      ]);
+      render(<FormikFileUpload name="document" />);
+      const onClick = MockIconButton.mock.calls[0][0].onClick;
+      onClick();
+      expect(mockHelpers.setTouched).toHaveBeenCalledWith(true);
+    });
+  });
+
+  describe("when the clear IconButton onClick is invoked for a multiple field", () => {
+    it("calls helpers.setValue with an empty array", () => {
+      const files = [new File(["a"], "file1.pdf", { type: "application/pdf" })];
+      mockUseField.mockReturnValue([
+        { ...defaultField, value: files },
+        defaultMeta,
+        mockHelpers,
+      ]);
+      render(<FormikFileUpload name="documents" multiple />);
+      const onClick = MockIconButton.mock.calls[0][0].onClick;
+      onClick();
+      expect(mockHelpers.setValue).toHaveBeenCalledWith([]);
     });
   });
 });

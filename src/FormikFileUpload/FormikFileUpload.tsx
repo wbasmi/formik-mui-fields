@@ -5,8 +5,10 @@ import {
   Button,
   FormControl,
   FormHelperText,
+  IconButton,
   Typography,
 } from "@mui/material";
+import { Clear } from "@mui/icons-material";
 import { useField } from "formik";
 import { useCallback, useRef } from "react";
 
@@ -63,6 +65,18 @@ const FormikFileUpload = ({
     [helpers, maxSize, multiple],
   );
 
+  const handleClear = useCallback(() => {
+    helpers.setValue(multiple ? [] : null);
+    helpers.setTouched(true);
+    if (inputRef.current) {
+      inputRef.current.value = "";
+    }
+  }, [helpers, multiple]);
+
+  const hasValue = Array.isArray(field.value)
+    ? field.value.length > 0
+    : Boolean(field.value);
+
   const getDisplayText = (): string => {
     if (!field.value) return "No file selected";
     if (Array.isArray(field.value)) {
@@ -88,6 +102,11 @@ const FormikFileUpload = ({
         <Typography variant="body2" color="text.secondary">
           {getDisplayText()}
         </Typography>
+        {hasValue && (
+          <IconButton aria-label="Clear file" onClick={handleClear} size="small">
+            <Clear fontSize="small" />
+          </IconButton>
+        )}
       </Box>
       <input
         ref={inputRef}
