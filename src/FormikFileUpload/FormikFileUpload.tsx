@@ -103,7 +103,11 @@ const FormikFileUpload = ({
           {getDisplayText()}
         </Typography>
         {hasValue && (
-          <IconButton aria-label="Clear file" onClick={handleClear} size="small">
+          <IconButton
+            aria-label="Clear file"
+            onClick={handleClear}
+            size="small"
+          >
             <Clear fontSize="small" />
           </IconButton>
         )}
