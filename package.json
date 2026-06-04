@@ -29,11 +29,11 @@
   "author": "Wadii Basmi",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wadiibasmi/formik-mui-fields.git"
+    "url": "git+https://github.com/wbasmi/formik-mui-fields.git"
   },
-  "homepage": "https://github.com/wadiibasmi/formik-mui-fields#readme",
+  "homepage": "https://github.com/wbasmi/formik-mui-fields#readme",
   "bugs": {
-    "url": "https://github.com/wadiibasmi/formik-mui-fields/issues"
+    "url": "https://github.com/wbasmi/formik-mui-fields/issues"
   },
   "type": "module",
   "main": "./dist/index.cjs",
