@@ -1,5 +1,11 @@
 # formik-mui-fields
 
+## 0.5.1
+
+### Patch Changes
+
+- fec957c: fix repository links in package.json
+
 ## 0.5.0
 
 ### Minor Changes
